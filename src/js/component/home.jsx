@@ -5,6 +5,7 @@ import { Accordion } from "./accordion";
 import { MathThing } from "./math";
 import { Jumbotron } from "./jumbotron";
 import { Table } from "./table";
+import { LightSwitch } from "./lightswitch";
 
 //include images into your bundle
 
@@ -100,22 +101,24 @@ const Home = () => {
 
   return (
     <main className="wobsite-content">
-      <Jumbotron header="React Day 3" fullWidth>
-        <h2>Review Redux: React</h2>
+      <Jumbotron header="React Day 4" fullWidth>
+        <h2>A Closer Look At State</h2>
         <ul className="mt-5 list-group">
-          <li className="list-group-item">Components are functions</li>
           <li className="list-group-item">
-            Props look like parameters in the components
+            <code>const [var, setVar] = useState();</code>
           </li>
           <li className="list-group-item">
-            You pass info into components via props as html attributes when you
-            use them
+            We use <code>useState</code> to tell React when a variable updates.
           </li>
+          {/* <li className="list-group-item"></li>
+          <li className="list-group-item"></li>
+          <li className="list-group-item"></li> */}
         </ul>
       </Jumbotron>
-      <div className="container my-5">
+      <LightSwitch />
+      {/* <div className="container my-5">
         <Table items={books} />
-      </div>
+      </div> */}
       {/* <div className="container my-5">
         <Jumbotron header="One-Page Wonder" corners>
           This website will knock your socks off!
