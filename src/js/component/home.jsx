@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 // Importing a component here
 import { Product } from "./product";
 import { Cart } from "./cart";
+import { ButtonGroup } from "./button_group";
 
 // Importing an array of data here.
 import { productData } from "../product_data";
@@ -27,29 +28,43 @@ const Home = () => {
 
   const [value, setValue] = useState("");
 
+  const [buttons, setButtons] = useState([
+    {
+      color: "primary",
+      text: "Home",
+      type: "link",
+      payload: "/",
+    },
+    {
+      color: "secondary",
+      text: "Cat Photo",
+      type: "link",
+      payload: "https://placekitten.com/978",
+    },
+    {
+      color: "info",
+      text: "Dog Photo",
+      type: "link",
+      payload: "https://place-puppy.com/539x777",
+    },
+    {
+      color: "success",
+      text: "Console.log something",
+      type: "button",
+      payload: () => console.log("Something."),
+    },
+    {
+      color: "danger",
+      text: "Console.error something",
+      type: "button",
+      payload: () => console.error("Something."),
+    },
+  ]);
+
   return (
     <main className="wobsite-content">
-      <ul className="mt-5 list-group">
-        <li className="list-group-item">
-          <form
-            onSubmit={(ev) => {
-              // ev.preventDefault();
-              console.log(value);
-            }}
-          >
-            <input
-              type="text"
-              value={value}
-              onChange={(ev) => {
-                console.log(ev);
-                setValue(ev.target.value);
-              }}
-            />
-          </form>
-        </li>
-        <li className="list-group-item">{value}</li>
-      </ul>
-
+      <ButtonGroup buttons={buttons} />
+      <ButtonGroup buttons={buttons} outline />
       {/* <Jumbotron header="React Day 5" fullWidth>
         <h2>Even More State</h2>
         <ul className="mt-5 list-group">
