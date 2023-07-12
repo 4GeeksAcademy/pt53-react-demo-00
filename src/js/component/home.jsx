@@ -1,108 +1,57 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Reciprocal } from "./reciprocal";
-import { Card } from "./card";
-import { Accordion } from "./accordion";
-import { MathThing } from "./math";
-import { Jumbotron } from "./jumbotron";
-import { Table } from "./table";
-import { LightSwitch } from "./lightswitch";
+
+// Importing a component here
+import { Product } from "./product";
+import { Cart } from "./cart";
+
+// Importing an array of data here.
+import { productData } from "../product_data";
 
 //include images into your bundle
 
-const books = [
-  {
-    title: "Neuromancer",
-    author: "William Gibson",
-    year_published: 1984,
-    isbn: "",
-    rating: 85,
-  },
-  {
-    title: "Snow Crash",
-    author: "Neal Stephenson",
-    year_published: 1992,
-    isbn: "978-01336162-0",
-    rating: 100,
-  },
-  {
-    title: "Altered Carbon",
-    author: "Richard K. Morgan",
-    year_published: 2002,
-    isbn: "",
-    rating: 90,
-  },
-  {
-    title: "Cryptonomicon",
-    author: "Neal Stephenson",
-    year_published: 2000,
-    isbn: "978-0-380-78862-0",
-    rating: 95,
-  },
-  {
-    title: "Consider Phlebas",
-    author: "Ian M. Banks",
-    year_published: 1987,
-    isbn: "0-333-45430-8",
-    rating: 99,
-  },
-  {
-    title: "American Gods",
-    author: "Neil Gaiman",
-    year_published: 2001,
-    isbn: "0-380-97365-0",
-    rating: 95,
-  },
-  {
-    title: "Going Postal",
-    author: "Terry Pratchett",
-    year_published: 2004,
-    isbn: "	0-385-60342-8",
-    rating: 97,
-  },
-];
-
 //create your first component
 const Home = () => {
-  // const [cats, setCats] = useState([]);
+  useEffect(() => {
+    console.log("This is your normal log.");
+    console.warn("This will show up in yellow in the terminal.");
+    console.error("This will show up as red!");
+    console.info("I think this one is blue.");
+    console.table(productData);
+  }, []);
 
-  // useEffect(() => {
-  //   setCats([
-  //     {
-  //       name: "Sombra",
-  //       age: 1.25,
-  //       color: "black",
-  //       isNapping: true,
-  //     },
-  //     {
-  //       name: "Nekobasu",
-  //       age: 1.25,
-  //       color: "brindle",
-  //       isNapping: false,
-  //     },
-  //     {
-  //       name: "Grizelle",
-  //       age: 6,
-  //       color: "brown and absurdly fluffy",
-  //       isNapping: false,
-  //     },
-  //     {
-  //       name: "Zorya",
-  //       age: 5,
-  //       color: "grey",
-  //       isNapping: true,
-  //     },
-  //   ]);
-  // }, []);
+  const [cart, setCart] = useState([]);
 
-  // const addCat = () => {
-  //   setCats([...cats, cats[Math.floor(Math.random() * cats.length)]]);
-  //   console.log(cats);
-  // };
+  const addItemToCart = (item) => {
+    setCart([...cart, item]);
+  };
+
+  const [value, setValue] = useState("");
 
   return (
     <main className="wobsite-content">
-      <Jumbotron header="React Day 4" fullWidth>
-        <h2>A Closer Look At State</h2>
+      <ul className="mt-5 list-group">
+        <li className="list-group-item">
+          <form
+            onSubmit={(ev) => {
+              // ev.preventDefault();
+              console.log(value);
+            }}
+          >
+            <input
+              type="text"
+              value={value}
+              onChange={(ev) => {
+                console.log(ev);
+                setValue(ev.target.value);
+              }}
+            />
+          </form>
+        </li>
+        <li className="list-group-item">{value}</li>
+      </ul>
+
+      {/* <Jumbotron header="React Day 5" fullWidth>
+        <h2>Even More State</h2>
         <ul className="mt-5 list-group">
           <li className="list-group-item">
             <code>const [var, setVar] = useState();</code>
@@ -110,34 +59,39 @@ const Home = () => {
           <li className="list-group-item">
             We use <code>useState</code> to tell React when a variable updates.
           </li>
-          {/* <li className="list-group-item"></li>
-          <li className="list-group-item"></li>
-          <li className="list-group-item"></li> */}
+          <li className="list-group-item">
+            State gives you an internal state, props define your component's
+            state from the outside.
+          </li>
+          <li className="list-group-item">
+            <h4>Props via "props" argument:</h4>
+            <code>
+              export const MyComponent = (props) ={">"} {"{"}...
+            </code>
+          </li>
+          <li className="list-group-item">
+            <code>{"{props.yourPropName}"}</code>
+          </li>
+          <li className="list-group-item">
+            <h4>Props via object deconstruction:</h4>
+            <code>
+              export const MyComponent = ({"{ yourPropName }"}) ={">"} {"{"}...
+            </code>
+          </li>
+          <li className="list-group-item">
+            <code>{"{ yourPropName }"}</code>
+          </li>
         </ul>
-      </Jumbotron>
-      <LightSwitch />
-      {/* <div className="container my-5">
-        <Table items={books} />
-      </div> */}
-      {/* <div className="container my-5">
-        <Jumbotron header="One-Page Wonder" corners>
-          This website will knock your socks off!
-        </Jumbotron>
-      </div> */}
-      {/* <Card width="80%">
-        <MathThing />
-      </Card> */}
-      {/* <Card width="50%" img="http://placekitten.com/550">
-        <Reciprocal />
-      </Card> */}
-      {/* <Card width="80%">
-        <p>{cats.length}</p>
-        <button className="btn btn-primary" onClick={addCat}>
-          Add a cat
-        </button>
-        <hr />
-        <Accordion items={cats} name="cats" />
-      </Card> */}
+      </Jumbotron> */}
+      {/* <LightSwitch /> */}
+      <Cart lineItems={cart} />
+      {productData.map((prod, idx) => (
+        <Product
+          product={prod}
+          callback={() => addItemToCart(prod)}
+          key={idx}
+        />
+      ))}
     </main>
   );
 };
