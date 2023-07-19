@@ -7,18 +7,19 @@ import { ButtonGroup } from "./button_group";
 
 // Importing an array of data here.
 import { productData } from "../product_data";
+import { FetchCard } from "./fetch_card";
 
 //include images into your bundle
 
 //create your first component
 const Home = () => {
-  useEffect(() => {
-    console.log("This is your normal log.");
-    console.warn("This will show up in yellow in the terminal.");
-    console.error("This will show up as red!");
-    console.info("I think this one is blue.");
-    console.table(productData);
-  }, []);
+  // useEffect(() => {
+  //   // console.log("This is your normal log.");
+  //   // console.warn("This will show up in yellow in the terminal.");
+  //   // console.error("This will show up as red!");
+  //   // console.info("I think this one is blue.");
+  //   // console.table(productData);
+  // }, []);
 
   const [cart, setCart] = useState([]);
 
@@ -61,10 +62,39 @@ const Home = () => {
     },
   ]);
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [content, setContent] = useState("");
+
+  useEffect(async () => {
+    const response = await fetch("https://httpbin.org/delay/2", {
+      method: "GET",
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setContent(JSON.stringify(data));
+      setIsLoaded(true);
+    }
+    // fetch("https://httpbin.org/delay/2", {
+    //   method: "GET",
+    // })
+    // .then((response) => {
+    //   if (response.ok) {
+    //     return response.json();
+    //   }
+    // })
+    // .then((data) => {
+    //   setContent(JSON.stringify(data));
+    //   setIsLoaded(true);
+    // });
+  }, []);
+
   return (
     <main className="wobsite-content">
-      <ButtonGroup buttons={buttons} />
-      <ButtonGroup buttons={buttons} outline />
+      <FetchCard isDone={isLoaded}>
+        <code>{content}</code>
+      </FetchCard>
+      {/* <ButtonGroup buttons={buttons} />
+      <ButtonGroup buttons={buttons} outline /> */}
       {/* <Jumbotron header="React Day 5" fullWidth>
         <h2>Even More State</h2>
         <ul className="mt-5 list-group">

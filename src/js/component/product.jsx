@@ -19,7 +19,7 @@ export const Product = ({ product = {}, callback = () => null }) => {
             <li className="breadcrumb-item">
               <a href="#">{product.category}</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li className="breadcrumb-item active" aria-current="page">
               {product.subcategory}
             </li>
           </ol>
